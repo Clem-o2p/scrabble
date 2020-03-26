@@ -1,0 +1,13 @@
+{
+  "[javascript]": {
+    "editor.formatOnSave": true
+  },
+  "[vue]": {
+    "editor.formatOnSave": true
+  },
+  "eslint.workingDirectories": ["./server", "./client" ],
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "prettier.disableLanguages": [
+    "html"
+  ],
+}
