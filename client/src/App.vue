@@ -1,31 +1,19 @@
 <template>
   <div id="app">
-    <hand />
+    <sidebar />
     <board />
   </div>
 </template>
 
 <script>
-import { mapActions } from "vuex";
 import Board from "./components/Board";
-import Hand from "./components/Hand";
-import baseLetters from "./services/createLetters";
+import Sidebar from "./components/Sidebar";
 
 export default {
   name: "App",
   components: {
     Board,
-    Hand
-  },
-  methods: {
-    ...mapActions({
-      setLetters: "setLetters"
-    })
-  },
-  created() {
-    const shuffledLetters = baseLetters.sort(() => 0.5 - Math.random());
-    const startLetters = shuffledLetters.slice(0, 7);
-    this.setLetters(startLetters);
+    Sidebar
   }
 };
 </script>
