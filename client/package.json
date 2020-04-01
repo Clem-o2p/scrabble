@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
+    "build:local": "APP_ENV=local vue-cli-service build",
+    "build:production": "APP_ENV=prod vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
