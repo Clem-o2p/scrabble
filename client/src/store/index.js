@@ -6,7 +6,7 @@ import sm from "../../../common/socket-messages";
 
 Vue.use(Vuex);
 
-const socket = io("http://localhost:3000");
+const socket = io(`http://${__API__}`);
 
 socket.on(sm.START_GAME, response => {
   store.commit("SET_GAME_STATE", true);
