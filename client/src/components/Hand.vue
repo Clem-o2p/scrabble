@@ -22,6 +22,7 @@
       </h3>
 
       <button v-if="active" @click="validateWord">Valider le mot</button>
+      <button class="end-game" @click="endGame">Fin de la partie</button>
     </div>
   </div>
 </template>
@@ -47,7 +48,8 @@ export default {
   },
   methods: {
     ...mapActions({
-      validateWord: "validateWord"
+      validateWord: "validateWord",
+      endGame: "endGame"
     })
   }
 };
@@ -65,5 +67,15 @@ export default {
 }
 
 .draggable {
+  cursor: grab;
+}
+
+.end-game {
+  display: block;
+  position: absolute;
+  bottom: 2rem;
+  /* margin: 0 auto; */
+  padding: 0.5rem;
+  border: 2px solid #c04e4e;
 }
 </style>

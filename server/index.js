@@ -37,12 +37,12 @@ const init = async () => {
 
   io.on("connection", socket => {
     connectedUsers.push({ id: socket.id });
-    console.log(connectedUsers.length);
+    console.log("a user connected", connectedUsers.length);
     socket.on(sm.START_GAME, () => {
       // Tell everyone the game starts
       // INIT NEW BAG
       const shuffledLetters = state.letters.sort(() => 0.5 - Math.random());
-      state.bag = shuffledLetters;
+      state.bag = [...shuffledLetters];
       console.log(state.bag.length);
       // for each player, pick 7 letters and send them
       connectedUsers.forEach(user => {
@@ -89,9 +89,14 @@ const init = async () => {
     socket.on(sm.END_GAME, () => {
       connectedUsers = [];
       io.emit(sm.END_GAME);
+      console.log("end of the game");
     });
     socket.on("disconnect", () => {
       connectedUsers = connectedUsers.filter(user => user.id !== socket.id);
+      if (!connectedUsers.length) {
+        connectedUsers = [];
+        io.emit(sm.END_GAME);
+      }
       console.log("a user disconnected");
     });
   });

@@ -32,7 +32,7 @@ socket.on(sm.START_TURN, () => {
 });
 
 socket.on(sm.END_GAME, () => {
-  store.commit("SET_GAME_STATE", false);
+  document.location.reload();
 });
 
 const remove = (array, key, letterToRemove) => {
@@ -93,6 +93,9 @@ const store = new Vuex.Store({
     },
     SET_USER_ID(state, id) {
       state.userId = id;
+    },
+    RESET_BOARD(state) {
+      state.board = board;
     }
   },
   actions: {
@@ -115,6 +118,10 @@ const store = new Vuex.Store({
         userId: context.state.userId,
         remainingLetters: context.state.letters.length
       });
+    },
+    endGame(context) {
+      socket.emit(sm.END_GAME);
+      context.commit("RESET_BOARD");
     }
   }
 });
