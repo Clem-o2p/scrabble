@@ -4,12 +4,16 @@
       <component
         :is="isDraggable"
         class="letter"
+        :class="isDraggable ? 'draggable' : ''"
         :style="letterWidth"
         v-for="(letter, index) in letters"
         :key="index"
         :transfer-data="letter"
       >
         {{ letter.letter }}
+        <span class="points">
+          {{ letter.points }}
+        </span>
       </component>
     </div>
     <div>
@@ -58,5 +62,8 @@ export default {
   background: lightgoldenrodyellow;
   line-height: 3;
   text-transform: capitalize;
+}
+
+.draggable {
 }
 </style>

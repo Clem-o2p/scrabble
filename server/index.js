@@ -65,9 +65,17 @@ const init = async () => {
 
     socket.on(sm.END_TURN, userInfos => {
       console.log(userInfos);
-      // Pick n letters (n + remainingLetters = 7) on the bag and send them to current player
+
+      let letters;
+
+      if (state.bag.length) {
+        // Pick n letters (n + remainingLetters = 7) on the bag and send them to current player
+        letters = state.pickLetters(7 - userInfos.remainingLetters);
+      } else {
+        letters = [];
+      }
       io.to(userInfos.userId).emit(sm.END_TURN, {
-        letters: state.pickLetters(7 - userInfos.remainingLetters)
+        letters
       });
       const nextPlayer = connectedUsers.filter(
         user => user.id !== userInfos.userId
@@ -76,7 +84,12 @@ const init = async () => {
       io.to(nextPlayer[0].id).emit(sm.START_TURN);
     });
 
-    // When game ends, broadcast message to everybody
+    // When game ends, broadcast message to everybody and clean state
+
+    socket.on(sm.END_GAME, () => {
+      connectedUsers = [];
+      io.emit(sm.END_GAME);
+    });
     socket.on("disconnect", () => {
       connectedUsers = connectedUsers.filter(user => user.id !== socket.id);
       console.log("a user disconnected");

@@ -12,8 +12,8 @@
             ...arguments
           )
         "
+        v-html="displayCellContent(cell)"
       >
-        {{ displayCellContent(cell) }}
       </drop>
     </div>
   </div>
@@ -68,7 +68,7 @@ export default {
     },
     displayCellContent(cell) {
       if (cell.letter) {
-        return cell.letter;
+        return `${cell.letter} <span class="points">${cell.points}</span>`;
       } else {
         return this.mapToFrench(cell.type);
       }

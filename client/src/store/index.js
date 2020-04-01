@@ -31,6 +31,10 @@ socket.on(sm.START_TURN, () => {
   store.commit("SET_ACTIVE", true);
 });
 
+socket.on(sm.END_GAME, () => {
+  store.commit("SET_GAME_STATE", false);
+});
+
 const remove = (array, key, letterToRemove) => {
   const removedArr = [];
   let found = false;
@@ -74,7 +78,8 @@ const store = new Vuex.Store({
     SET_LETTER_ON_BOARD(state, data) {
       Vue.set(state.board[data.board.row], data.board.cell, {
         type: data.board.type,
-        letter: data.letter.letter
+        letter: data.letter.letter,
+        points: data.letter.points
       });
     },
     SET_USERNAME(state, username) {
